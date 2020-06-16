@@ -1,0 +1,42 @@
+{
+    "main": {
+        "port": <port number to run the webinterface on>,
+        "name": "Tokenname",
+        "company": "Gateways Ltd",
+        "contact-email": "info@contact.us",
+        "contact-telegram": "https://t.me/TurtleNetwork",
+        "recovery_amount": <minimum recovery amount>,
+        "recovery_fee": <recovery fee in %>,
+        "admin-username": "admin",
+        "admin-password": "admin",
+        "disclaimer": "link to a disclaimer file online",
+        "min": <minimum amount>,
+        "max": <maximum amount>
+    },
+    "other": {
+        "node": "<the btc node your wallet is running on including rpcusername & rpcpassword>",
+        "passphrase": "if the node wallet is encrypted enter the passphrase here, otherwise leave empty",
+        "passenvname" : "<the ENV name to store your passphrase instead of the field above>",
+        "decimals": <number of decimals of the token>,
+        "gatewayAddress": "<Waves address of the gateway>",
+        "fee": <the total fee you want to collect on the gateway, calculated in the proxy token, e.g., 0.1>,
+        "gateway_fee": <the gatewway part of the fee calculated in the proxy token, e.g., 0.1>,
+        "network_fee": <the tx part of the fee calculated in the proxy token, e.g., 0.1>,
+        "timeInBetweenChecks": <seconds in between a check for a new block>,
+        "confirmations": <number of confirmations necessary in order to accept a transaction>
+    },
+    "tn": {
+        "gatewayAddress": "<TN address of the gateway>",
+        "gatewaySeed": "<seed of the above devined address>",
+        "seedenvname" : "<the ENV name to store your seed instead of the field above>",
+        "fee": <the fee you want to collect on the gateway, calculated in the proxy token, e.g., 0.1>,
+        "gateway_fee": <the gatewway part of the fee calculated in the proxy token, e.g., 0.1>,
+        "network_fee": <the tx part of the fee calculated in the proxy token, e.g., 0.1>,
+        "assetId": "<the asset id of the proxy token on the TN platform>",
+        "decimals": <number of decimals of the token>,
+        "network": "<Waves network you want to connect to (testnet|mainnet)>",
+        "node": "<the TN node you want to connect to>",
+        "timeInBetweenChecks": <seconds in between a check for a new block>,
+        "confirmations": <number of confirmations necessary in order to accept a transaction>
+    }
+}

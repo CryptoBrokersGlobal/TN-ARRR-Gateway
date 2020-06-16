@@ -1,0 +1,10 @@
+requests
+python-axolotl-curve25519
+pyblake2
+base58 == 0.2.5
+pycwaves
+fastapi
+uvicorn
+jinja2
+aiofiles
+bitcoinrpc
