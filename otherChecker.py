@@ -116,7 +116,7 @@ class OtherChecker(object):
                     res2 = cursor.execute('SELECT 1 FROM errors WHERE otherTxId = "' + transaction['txid'] + '"').fetchall()
 
                     if len(res) == 0 and len(res2) == 0: 
-                        if transaction['rawconfirmations'] > self.config['other']['confirmations']:
+                        if transaction['confirmations'] > self.config['other']['confirmations']:
                             if transaction['memo'].startswith('f60'):
                                 self.faultHandler(transaction, "receiveerror", "empty memo field")
 
