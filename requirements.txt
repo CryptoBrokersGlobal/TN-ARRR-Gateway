@@ -7,4 +7,6 @@ fastapi
 uvicorn
 jinja2
 aiofiles
-bitcoinrpc
+python-bitcoinrpc
+pydantic
+psycopg2-binary 
