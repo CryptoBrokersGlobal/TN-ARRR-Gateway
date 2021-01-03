@@ -1,9 +1,9 @@
-# TN <-> BTC Platform Gateway Framework
+# TN <-> KMD Platform Gateway Framework
 
 Inspired by Hawky's Waves-ERC20 Gateway: https://github.com/PyWaves/Waves-ERC20-Gateway
 But rewritten to be published under FOSS license.
 
-This framework allows to easily establish a gateway between any BTC chain and the
+This framework allows to easily establish a gateway between any KMD chain and the
 TN Platform.
 ## Installation
 Clone this repository and edit the config.json file according to your needs. Install the dependencies in requirements.txt via:
