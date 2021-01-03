@@ -1,9 +1,9 @@
-# TN <-> BTC Platform Gateway Framework
+# TN <-> KMD Platform Gateway Framework
 
 Inspired by Hawky's Waves-ERC20 Gateway: https://github.com/PyWaves/Waves-ERC20-Gateway
 But rewritten to be published under FOSS license.
 
-This framework allows to easily establish a gateway between any BTC chain and the
+This framework allows to easily establish a gateway between any KMD chain and the
 TN Platform.
 ## Installation
 Clone this repository and edit the config.json file according to your needs. Install the dependencies in requirements.txt via:
@@ -46,8 +46,8 @@ The config.json file includes all necessary settings that need to be configured 
         "passphrase": "if the node wallet is encrypted enter the passphrase here, otherwise leave empty",
         "passenvname" : "<the ENV name to store your passphrase instead of the field above>",
         "decimals": <number of decimals of the token>,
-        "gatewayAddress": "<ETH address of the gateway>",
-        "coldwallet": "<ETH address of the gateway's cold wallet (if in use)>",
+        "gatewayAddress": "<KMD address of the gateway>",
+        "coldwallet": "<KMD address of the gateway's cold wallet (if in use)>",
         "fee": <the total fee you want to collect on the gateway, calculated in the proxy token, e.g., 0.1>,
         "gateway_fee": <the gatewway part of the fee calculated in the proxy token, e.g., 0.1>,
         "network_fee": <the tx part of the fee calculated in the proxy token, e.g., 0.1>,
@@ -77,9 +77,9 @@ The config.json file includes all necessary settings that need to be configured 
 After starting the gateway, it will provide a webpage on the port set in config.json.
 
 ## Usage of the gateway
-This is a simple gateway for TN tokens to the ERC20 Platform and vice versa. For sending tokens from the Etherium Platform to the TN blockchain, fill in your source ETH wallet address and the receiving Turtle Network wallet to create a tunnel. Then send the tokens to the Ethereum address of the gateway.
+This is a simple gateway for TN tokens to the KMD Platform and vice versa. For sending tokens from the Komodo Platform to the TN blockchain, fill in your source KMD wallet address and the receiving Turtle Network wallet to create a tunnel. Then send the tokens to the Komodo address of the gateway.
 
-For sending tokens from the TN Platform to the Etherium blockchain, just add the Etherium address that should receive the tokens as the description of the transfer and send the tokens to the TN address of the gateway.
+For sending tokens from the TN Platform to the Komodo blockchain, just add the Komodo address that should receive the tokens as the description of the transfer and send the tokens to the TN address of the gateway.
 
 ## Management interface
 After starting the gateway, there are also a couple of management interfaces which are secured by the admin-username and admin-password fields in the config.json:
