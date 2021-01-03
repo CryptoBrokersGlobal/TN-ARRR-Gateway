@@ -132,7 +132,12 @@ def get_tnBalance():
     return tnc.currentBalance()
 
 def get_otherBalance():
-    return otc.currentBalance()
+    try:
+        balance = otc.currentBalance()
+    except:
+        balance = 0
+
+    return balance
 
 
 @app.get("/")

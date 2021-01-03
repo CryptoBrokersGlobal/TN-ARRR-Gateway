@@ -424,7 +424,7 @@ class dbCalls(object):
             return None
 
     def insVerified(self, chain, tx, block):
-        if self.getVerified(tx) is None:
+        if self.getVerified(tx) is None and len(tx) > 1:
             sql = 'INSERT INTO verified ("chain", "tx", "block") VALUES (?, ?, ?)'
             values = (chain, tx, block)
 
