@@ -96,6 +96,10 @@ class OtherChecker(object):
         amount = float(tx['amount'])
         timestampStr = sharedfunc.getnow()
 
+        if error == "noattachment":
+            self.db.insError('unknown', '', '', tx['txid'], amount, 'empty memo field')
+            print("ERROR: " + timestampStr + " - Error: empty memo field " + tx['sender'] + " - check errors table.")
+
         if error == "notunnel":
             self.db.insError(tx['sender'], '', '', tx['txid'], amount, 'no tunnel found for sender')
             print("ERROR: " + timestampStr + " - Error: no tunnel found for transaction from " + tx['sender'] + " - check errors table.")

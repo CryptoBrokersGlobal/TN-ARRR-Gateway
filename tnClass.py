@@ -79,8 +79,6 @@ class tnCalls(object):
         return None
 
     def sendTx(self, address, amount, attachment):
-        #return '6whXyD1mNJiUFnf8EtRYvcs7HtdT8ESZdjCbaUhC7rRt'
-
         addr = self.pwTN.Address(address)
         if self.config['tn']['assetId'] == 'TN':
             tx = self.tnAddress.sendWaves(addr, amount, attachment, txFee=2000000)
