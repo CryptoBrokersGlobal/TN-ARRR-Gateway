@@ -1,6 +1,6 @@
 FROM python:alpine3.7
-COPY . /TN-ARRR-Gateway
-WORKDIR /TN-ARRR-Gateway
+COPY . /TN-KMD-Gateway
+WORKDIR /TN-KMD-Gateway
 RUN apk update
 RUN apk upgrade
 RUN apk add build-base 
