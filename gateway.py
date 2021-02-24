@@ -8,8 +8,9 @@ from pydantic import BaseModel
 from verification import verifier
 from dbClass import dbCalls
 from dbPGClass import dbPGCalls
-from otherClass import otherCalls
+#from otherClass import otherCalls
 from tnClass import tnCalls
+import bitcoinrpc.authproxy as authproxy
 
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
@@ -112,7 +113,7 @@ else:
     dbc = dbCalls(config)
 
 tnc = tnCalls(config, dbc)
-otc = otherCalls(config, dbc)
+#otc = otherCalls(config, dbc)
 checkit = verifier(config, dbc)
 
 
@@ -132,10 +133,12 @@ def get_tnBalance():
     return tnc.currentBalance()
 
 def get_otherBalance():
-    try:
-        balance = otc.currentBalance()
-    except:
-        balance = 0
+    # try:
+    #     balance = otc.currentBalance()
+    # except:
+    #     balance = 0
+    myProxy = authproxy.AuthServiceProxy(config['other']['node'])
+    balance = myProxy.z_getbalance(config['other']['gatewayAddress'])
 
     return balance
 
