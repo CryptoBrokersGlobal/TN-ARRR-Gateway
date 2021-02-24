@@ -38,10 +38,10 @@ class otherCalls(object):
 
     def currentBalance(self):
         try:
-            balance = self.myProxy.getbalance()
+            balance = self.myProxy.z_getbalance(self.config['other']['gatewayAddress'])
         except:
             self.myProxy = authproxy.AuthServiceProxy(self.config['other']['node'])
-            balance = self.myProxy.getbalance()
+            balance = self.myProxy.z_getbalance(self.config['other']['gatewayAddress'])
 
         return balance
 
