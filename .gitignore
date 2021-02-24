@@ -1,3 +1,9 @@
+config.json
+__pycache__/*
+.vscode/launch.json
+gateway.db
+config_template.json
+
 **/.idea/*
 
 **/creds/*

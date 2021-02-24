@@ -37,7 +37,11 @@ class otherCalls(object):
         return self.myProxy.z_listreceivedbyaddress(self.config['other']['gatewayAddress'])
 
     def currentBalance(self):
-        balance = self.myProxy.getbalance()
+        try:
+            balance = self.myProxy.z_getbalance(self.config['other']['gatewayAddress'])
+        except:
+            self.myProxy = authproxy.AuthServiceProxy(self.config['other']['node'])
+            balance = self.myProxy.z_getbalance(self.config['other']['gatewayAddress'])
 
         return balance
 
@@ -48,33 +52,36 @@ class otherCalls(object):
             return "invalid address"
 
     def validateAddress(self, address):
+        self.currentBalance()
+
         try:
             return self.myProxy.z_validateaddress(address)
         except:
             return False
 
     def verifyTx(self, txId, sourceAddress = '', targetAddress = ''):
-        if txId.startswith('opid'):
-            txId = [txId]
-            opRes = self.myProxy.z_getoperationresult(txId)[0]
-            txId = opRes['result']['txid']
-
-        tx = self.db.getExecuted(otherTxId=txId)
-
+        self.currentBalance()
         try:
+            if txId.startswith('opid'):
+                txId = [txId]
+                opRes = self.myProxy.z_getoperationresult(txId)
+                
+                txId = opRes[0]['result']['txid']
+
             verified = self.myProxy.gettransaction(txId)
             block = self.myProxy.getblock(verified['blockhash'])
 
-            if verified['confirmations'] >= self.config['other']['confirmations']:
-                self.db.insVerified("Other", txId, block['height'])
-                print('INFO: tx to other verified!')
+            #if verified['confirmations'] >= self.config['other']['confirmations']:
+            self.db.insVerified("Other", txId, block['height'])
+            print('INFO: tx to other verified!')
 
-                self.db.delTunnel(sourceAddress, targetAddress)
-            elif verified['txid'] != txId:
+            self.db.delTunnel(sourceAddress, targetAddress)
+            
+            if verified['txid'] != txId:
                 print('ERROR: tx failed to send!')
                 self.resendTx(txId)
         except:
-            self.db.insVerified("Other", txId, 0)
+            self.db.insVerified("Other", txId[0], 0)
             print('WARN: tx to other not verified!')
 
     def checkTx(self, tx):
@@ -99,7 +106,7 @@ class otherCalls(object):
         return result
 
     def sendTx(self, targetAddress, amount):
-        #return '316503a028b6ccd21b503950cc191bf296291d8480adcc70505f29c1a03ee3da'
+        self.currentBalance()
 
         amount -= self.config['other']['fee']
 
@@ -123,7 +130,11 @@ class otherCalls(object):
         if len(passphrase) > 0:
             self.myProxy.walletlock()
 
-        return txId[0]
+        if len(txId) == 0:
+            temptx = {'id': opId[0], 'status': 'unknown', 'result': {'txid': opId[0]}}
+            return temptx
+        else:
+            return txId[0]
 
     def resendTx(self, txId):
         if type(txId) == str:

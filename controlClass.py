@@ -43,10 +43,9 @@ class controller(object):
                     tx = {'id': txV[2]}
                     self.tnc.verifyTx(tx)
 
+        print("INFO: Last scanned Other block: " + str(self.db.lastScannedBlock("Other")))
+        print("INFO: Last scanned TN block: " + str(self.db.lastScannedBlock("TN")))
         while True:
-            print("INFO: Last scanned Other block: " + str(self.db.lastScannedBlock("Other")))
-            print("INFO: Last scanned TN block: " + str(self.db.lastScannedBlock("TN")))
-
             #handle tunnels on status 'verifying'
             to_verify = self.db.getTunnels(status='verifying')
 
@@ -55,16 +54,17 @@ class controller(object):
                     sourceAddress = address[0]
                     targetAddress = address[1]
 
-                    if self.otc.validateAddress(sourceAddress):
-                        txid = self.db.getExecuted(targetAddress=targetAddress)
-                        print("INFO: verify tx: " + txid[0][0])
-                        tx = {'id': txid[0][0]}
-                        self.tnc.verifyTx(tx, sourceAddress, targetAddress)
-                    else:
+                    if self.tnc.validateAddress(sourceAddress):
                         txid = self.db.getExecuted(sourceAddress=sourceAddress)
                         print("INFO: verify tx: " + txid[0][0])
                         tx = txid[0][0]
                         self.otc.verifyTx(tx, sourceAddress, targetAddress)
+                    else:
+                        txid = self.db.getExecuted(targetAddress=targetAddress)
+                        print("INFO: verify tx: " + txid[0][0])
+                        tx = {'id': txid[0][0]}
+                        self.tnc.verifyTx(tx, sourceAddress, targetAddress)
+
 
             #TODO: handle tunnels on status 'sending'
             time.sleep(600)
